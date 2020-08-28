@@ -9,6 +9,7 @@ public class JmsProduce_Topic_Persist {
     public static final String TOPIC_NAME = "Topic-persist";
 
     public static void main(String[] args) throws JMSException {
+
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
         Connection connection = activeMQConnectionFactory.createConnection();
 

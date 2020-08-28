@@ -5,9 +5,12 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 public class JmsProduce {
-    public static final String ACTIVE_URL = "tcp://192.168.0.108:61616";
+    //    public static final String ACTIVE_URL = "tcp://192.168.0.108:61616";
+    //    public static final String ACTIVE_URL = "nio://192.168.0.108:61608";
     //    public static final String ACTIVE_URL = "tcp://localhost:61616";
-    public static final String QUEUE_NAME = "queue01";
+    public static final String ACTIVE_URL = "failover:(tcp://192.168.0.108:61616,tcp://192.168.0.104:61616,tcp://192.168.0.107:61616)?randomize=false";
+
+    public static final String QUEUE_NAME = "jdbc01";
 
     public static void main(String[] args) throws JMSException {
         //1 创建连接工厂
@@ -21,6 +24,7 @@ public class JmsProduce {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5 创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         //6 通过使用messageProducer生产3条消息发送到MQ的消息队列
         for (int i = 1; i <= 3; i++) {
             //7 创建消息

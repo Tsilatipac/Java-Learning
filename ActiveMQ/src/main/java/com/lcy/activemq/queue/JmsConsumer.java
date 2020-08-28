@@ -6,9 +6,12 @@ import javax.jms.*;
 import java.io.IOException;
 
 public class JmsConsumer {
-    public static final String ACTIVE_URL = "tcp://192.168.0.108:61616";
+    //    public static final String ACTIVE_URL = "tcp://192.168.0.108:61616";
+    //    public static final String ACTIVE_URL = "nio://192.168.0.108:61608";
     //    public static final String ACTIVE_URL = "tcp://localhost:61616";
-    public static final String QUEUE_NAME = "queue01";
+    public static final String ACTIVE_URL = "failover:(tcp://192.168.0.108:61616,tcp://192.168.0.104:61616,tcp://192.168.0.107:61616)?randomize=false";
+
+    public static final String QUEUE_NAME = "jdbc01";
 
     public static void main(String[] args) throws JMSException, IOException {
         //1 创建连接工厂
@@ -22,10 +25,10 @@ public class JmsConsumer {
         Queue queue = session.createQueue(QUEUE_NAME);
         //5 创建消息的消费者
         MessageConsumer messageConsumer = session.createConsumer(queue);
-        /* 同步阻塞方式
+        //同步阻塞方式
         while (true) {
-            TextMessage textMessage = (TextMessage) messageConsumer.receive();
-//            TextMessage textMessage = (TextMessage) messageConsumer.receive(4000L);
+//            TextMessage textMessage = (TextMessage) messageConsumer.receive();
+            TextMessage textMessage = (TextMessage) messageConsumer.receive(4000L);
             if (null != textMessage) {
                 System.out.println("消费者接受到消息：" + textMessage.getText());
             } else {
@@ -35,25 +38,25 @@ public class JmsConsumer {
         //关闭资源
         messageConsumer.close();
         session.close();
-        connection.close();*/
-
-        //通过监听方式来消费消息
-        messageConsumer.setMessageListener(new MessageListener() {
-            @Override
-            public void onMessage(Message message) {
-                if (null != message && message instanceof TextMessage) {
-                    TextMessage textMessage = (TextMessage) message;
-                    try {
-                        System.out.println("消费者接受到消息" + textMessage.getText());
-                    } catch (JMSException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        System.in.read();
-        messageConsumer.close();
-        session.close();
         connection.close();
+
+//        //通过监听方式来消费消息
+//        messageConsumer.setMessageListener(new MessageListener() {
+//            @Override
+//            public void onMessage(Message message) {
+//                if (null != message && message instanceof TextMessage) {
+//                    TextMessage textMessage = (TextMessage) message;
+//                    try {
+//                        System.out.println("消费者接受到消息" + textMessage.getText());
+//                    } catch (JMSException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        System.in.read();
+//        messageConsumer.close();
+//        session.close();
+//        connection.close();
     }
 }
