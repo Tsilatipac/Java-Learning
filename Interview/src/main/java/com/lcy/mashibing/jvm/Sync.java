@@ -14,14 +14,14 @@ public class Sync {
 
         StringBuilder stringBuilder = new StringBuilder();
         Object o = new Object();
-        int[] ints = new int[18];
+        int[] ints = new int[8];
 
         ArrayList arrayList = new ArrayList();
         ArrayList arrayList1 = (ArrayList) arrayList.clone();
 
         String string = "Hello";
 
-        System.out.println(ClassLayout.parseInstance(o).toPrintable());
+        System.out.println(ClassLayout.parseInstance(ints).toPrintable());
 
 //        Instant start = Instant.now();
 //        int sum = 0;
@@ -30,9 +30,9 @@ public class Sync {
 //        }
 //        System.out.println(Duration.between(start, Instant.now()).toMillis());
 
-//        synchronized (o) {
-//            System.out.println(ClassLayout.parseInstance(o).toPrintable());
-//        }
+        synchronized (o) {
+            System.out.println(ClassLayout.parseInstance(o).toPrintable());
+        }
 
 //        ThreadLocal<String> tl = new ThreadLocal<>();
 //        tl.set("Happy new year");

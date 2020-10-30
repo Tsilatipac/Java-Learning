@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>TestModule</module>
+        <module>Spring5</module>
     </modules>
 
 
