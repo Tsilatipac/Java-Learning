@@ -1,0 +1,3 @@
+[submodule "my-util"]
+	path = my-util
+	url = git@gitee.com:tsilatipac/my-util.git
