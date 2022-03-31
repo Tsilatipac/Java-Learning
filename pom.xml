@@ -11,6 +11,9 @@
     <modules>
         <module>TestModule</module>
         <module>Spring5</module>
+        <module>Network</module>
+        <module>SpringSource</module>
+        <module>JVM</module>
     </modules>
 
 

@@ -21,7 +21,7 @@ public class Sync {
 
         String string = "Hello";
 
-        System.out.println(ClassLayout.parseInstance(ints).toPrintable());
+        System.out.println(ClassLayout.parseInstance(o).toPrintable());
 
 //        Instant start = Instant.now();
 //        int sum = 0;
